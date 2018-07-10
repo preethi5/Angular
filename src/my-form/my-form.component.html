@@ -1,0 +1,80 @@
+
+
+<h2>My Reactive Form</h2>
+
+<form [formGroup]="myForm" (ngSubmit)="submitForm(myForm.value)">
+    <table>
+        <tr>
+            <td><label>First Name</label></td>
+            <td><input type="text" class='input' formControlName="fname">
+                <div *ngIf="myForm.get('fname').touched && myForm.get('fname').invalid">
+                    <div class="msg" *ngIf= "myForm.get('fname').hasError('required')">First Name is required!</div>
+                    <div class="msg" *ngIf= "myForm.get('fname').hasError('pattern')">Please give a proper FName</div>
+                </div>
+            </td><td></td>
+        </tr>
+        <tr>
+            <td><label>Last Name</label></td>
+            <td><input type="text" class='input' formControlName="lname">
+                <div *ngIf="myForm.get('lname').touched && myForm.get('lname').invalid">
+                    <div class="msg"  *ngIf= "myForm.get('lname').hasError('required')">Last Name is required!</div>
+                    <div class="msg"  *ngIf= "myForm.get('lname').hasError('pattern')">Please give a proper LName</div>
+                </div>
+            </td><td></td>
+        </tr>
+        <tr><td><label>Email ID</label></td>
+            <td><input type="text" class='input' formControlName="email">
+                <div *ngIf="myForm.get('email').touched && myForm.get('email').invalid">
+                    <div class="msg" *ngIf= "myForm.get('email').hasError('required')">Email is required!</div>
+                    <div class="msg" *ngIf= "myForm.get('email').hasError('email')">Please give a valid Email.</div>
+                </div>
+            </td><td></td>
+        </tr>
+        <tr><td><label>Password</label></td>
+            <td><input type="password" class='input' formControlName="pwd">
+                <div *ngIf="myForm.get('pwd').touched && myForm.get('pwd').invalid">
+                    <div class="msg" *ngIf= "myForm.get('pwd').hasError('required')">Password is required!</div>
+                    <div class="msg" *ngIf= "myForm.get('pwd').hasError('minLength')">Minimum character length is 6.</div>
+                </div>
+            </td><td></td>
+        </tr>
+        <tr><td><label for="name">Country</label></td>
+            <td><div class="form-group">
+                <angular2-multiselect formControlName="country" [data]="dropdownList" [(ngModel)]="selectedItems" 
+                       [settings]="settings" 
+                       (onSelect)="onItemSelect($event)"
+                       (onDeSelect)="OnItemDeSelect($event)" 
+                       (onSelectAll)="onSelectAll($event)" 
+                       (onDeSelectAll)="onDeSelectAll($event)" >
+                </angular2-multiselect>
+                <div *ngIf="myForm.get('country').touched && myForm.get('country').invalid">
+                        <div class="msg" *ngIf= "myForm.get('country').hasError('required')">Country is required!</div>
+                </div>
+                </div>
+            </td><td></td>
+        </tr><tr></tr><tr></tr><tr></tr>
+        <tr>
+            <td><label for="name">Gender</label></td>
+            <td><label>Male</label><input type="radio" name="gender" value="male" checked>&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>Female</label><input type="radio" name="gender" value="female">&nbsp;&nbsp;&nbsp;&nbsp;
+            <label>other</label><input type="radio" name="gender" value="other"></td>&nbsp;&nbsp;&nbsp;&nbsp;
+        </tr>
+        <tr>
+            <td><label>Address</label></td>
+            <td><textarea formControlName="address" class='input'></textarea>
+                <div *ngIf="myForm.get('address').touched && myForm.get('address').invalid">
+                    <div class="msg" *ngIf= "myForm.get('address').hasError('required')">Address is required!</div>
+                    <div class="msg" *ngIf= "myForm.get('address').hasError('minLength')">Minimum character length is 20.</div>
+                    <div class="msg" *ngIf= "myForm.get('address').hasError('maxLength')">Max character length is 50.</div>
+                </div>
+            </td><td></td>
+        </tr>
+        <tr><td><input type="checkbox" name="accept" value="accept" checked>I accept<br></td>
+            <td><input type="checkbox" name="accept" value="notaccept">I don't accept<br></td>
+        </tr>
+        <tr><td></td>
+            <td><input type="submit" id="submitbtn" class="button expanded" value="Submit" [disabled]="myForm.invalid">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="submit" id="clearbtn" class="button expanded" (click) = "myForm.reset()" value="Clear"></td>
+        </tr>
+</table>
+</form>
